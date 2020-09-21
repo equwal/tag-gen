@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# tag-gen.ros isn't really meant to be used interactively, but it can
+# be useful to call it directly when making big changes to a project,
+# adding a new one, etc.
+
+tag-gen.ros /home/username/.config/tag-gen/local.conf /usr/bin/etags 2

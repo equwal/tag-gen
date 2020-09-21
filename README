@@ -1,0 +1,46 @@
+Generate etags for a list of files and extensions.
+
+===
+Requirements
+===
+- A cron program like cronie or scron
+- The Roswell Common Lisp script bootstrapper
+- a tagging program like etags
+
+===
+Install
+===
+
+Add a command to cron like:
+*/29 * * * * su username -c 'tag-gen.ros /home/username/.config/tag-gen/local.conf /usr/bin/etags 1'
+
+Signature:
+
+tag-gen.ros <conf> <tag program> [verbosity]
+
+tags.conf needs to contain this kind of format:
+(("<directory>" ("<ext>"...))
+  ...)
+See examples in config-examples. Configuration is **mandatory** for the program to work.
+
+For example:
+(("/home/jose/.emacs.d" ("el"))
+ ("/home/jose/src/sf/sbcl/sbcl" ("lisp" "c")))
+
+Keep in mind that the home shorthand ~ might not git expanded
+properly! Always use absolute paths like in the examples.
+
+For output control, call with a debug argument 0, 1, 2 where:
+- 0 is silent
+- 1 is for serious errors
+- 2 is for everything
+
+Edit tgen and put it in the path.
+
+===
+TODO
+===
+Use GNU Make to put things in the PATH and to form absolute paths.
+
+
+
