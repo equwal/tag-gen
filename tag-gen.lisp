@@ -1,13 +1,3 @@
-#!/bin/sh
-#|-*- mode:lisp -*-|#
-#|
-exec ros -Q -- $0 "$@"
-|#
-(progn ;;init forms
-  (ros:ensure-asdf)
-  #+quicklisp(ql:quickload '() :silent t)
-  )
-
 ;;;; Generate etags for a list of files.
 ;;;; Add a command to cron like:
 ;;;; 0 0 * * * tag-gen ~/.config/tag-gen/tags.conf
@@ -27,9 +17,11 @@ exec ros -Q -- $0 "$@"
 ;;;; - 1 is for serious errors
 ;;;; - 2 is for everything
 
-(defpackage :ros.script.tag-gen.3809526563
-  (:use :cl))
-(in-package :ros.script.tag-gen.3809526563)
+(defpackage :tag-gen
+  (:use #:cl)
+  (:export #:main))
+
+(in-package :tag-gen)
 
 (defvar *log-level* 0)
 
@@ -67,4 +59,5 @@ exec ros -Q -- $0 "$@"
     (with-open-file (s conf :direction :input)
       (tag-gen (read s) (uiop:unix-namestring tag-program)))))
 
-;;; vim: set ft=lisp lisp:
+; (main "/home/jose/.config/tag-gen/local.conf" "/usr/bin/exuberant-ctags" 2)
+; (main "/home/jose/.config/tag-gen/root.conf" "/usr/bin/exuberant-ctags" 2)
