@@ -18,46 +18,40 @@
 ;;;; - 2 is for everything
 
 (defpackage :tag-gen
-  (:use #:cl)
+  (:use #:cl #:uiop)
   (:export #:main))
 
 (in-package :tag-gen)
 
-(defvar *log-level* 0)
-
-(defun add-to-log (str-log level)
-  (when (and (/= 0 *log-level*)
-             (>= *log-level* level))
-    (format t "~A~%" str-log)))
+(defun add-to-log (msg)
+  (let ((msgstr (format nil "~a" msg)))
+    (format t "~A~@[~%~]"
+            msg
+            (or (zerop (length msgstr))
+                (char= #\Newline (char msgstr (1- (length msgstr))))))))
 
 (defun tag-gen (tags tag-program)
   (labels ((extensions (dir exts)
              (when exts
-               (add-to-log tags 2)
+               (and tags (add-to-log (car tags)))
                (add-to-log
-                (or (and (not (uiop:directory-exists-p dir))
+                (or (and (not (directory-exists-p dir))
                          (cons (format nil "The directory ~A doesn't exist" dir) 1))
-                    (uiop:run-program (format nil
-                                               "find ~A -type f -iname \"*.~A\" | ~A -"
+                    (run-program (format nil "find ~A -type f -iname \"*.~A\" | ~A -"
                                                dir
                                                (car exts)
                                                tag-program)
                                        :ignore-error-status t
-                                       :output '(string :stripped t)))
-                    2)
+                                       :output '(string :stripped t))))
                (extensions dir (cdr exts)))))
     (when tags
       (extensions (caar tags) (cadar tags))
       (tag-gen (cdr tags) tag-program))))
 
-(defun main (conf tag-program &optional (log-level *log-level*) &rest argv)
+(defun main (conf tag-program &rest argv)
   (declare (ignorable argv))
-  (let ((log-level (if (stringp log-level)
-                       (parse-integer log-level)
-                       log-level)))
-    (setf *log-level* log-level)
-    (with-open-file (s conf :direction :input)
-      (tag-gen (read s) (uiop:unix-namestring tag-program)))))
+  (with-open-file (s conf :direction :input)
+      (tag-gen (read s) (unix-namestring tag-program))))
 
 ; (main "/home/jose/.config/tag-gen/local.conf" "/usr/bin/exuberant-ctags" 2)
 ; (main "/home/jose/.config/tag-gen/root.conf" "/usr/bin/exuberant-ctags" 2)
