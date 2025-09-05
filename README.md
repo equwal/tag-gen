@@ -3,12 +3,17 @@ Generate tags for a list of files and extensions.
 # Requirements
 - An ANSI Common Lisp
 - A ctags-like program.
+- Desire
 
 # Install
 
-Run make in this folder.
+1. put this folder somewhere
+2. put the config folder somewhere
+3. put the tag-gen.sh and tag-gen-root.sh somewhere
+4. put the cron job in
+5. put your configuration in
 
-Edit the config/ files with the paths you want tagged. Read the docs for your tag program to know how to tell it what languages to use.
+Edit the config/ files with the paths you want tagged.
 
 Add a command to cron like:
 ```
@@ -24,5 +29,10 @@ tags.conf needs to contain this kind of format:
 (("<directory>" ("<ext>"...))
   ...)
 ```
-See examples in config-examples. Configuration is **mandatory** for the program to work. The format is just read with
-the lisp reader and is very simple.
+The tags program reads the file extensions to infer what language to do tags for. Specify the directories you want to
+use tag browsing programs on.
+
+
+See examples in config-examples. Configuration is **mandatory** for the
+program to work. The format is just read with the lisp reader and is
+very simple. 
