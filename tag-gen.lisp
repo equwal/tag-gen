@@ -48,7 +48,8 @@
       (extensions (caar tags) (cadar tags))
       (tag-gen (cdr tags) tag-program))))
 
-(defun main (conf tag-program &rest argv)
+(defun main (conf &rest argv)
   (declare (ignorable argv))
   (with-open-file (s conf :direction :input)
-      (tag-gen (read s) (unix-namestring tag-program))))
+    (let ((tag-program (read s)))
+      (tag-gen (read s) (unix-namestring tag-program)))))

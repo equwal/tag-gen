@@ -24,9 +24,13 @@ Signature:
 
 
 tags.conf needs to contain this kind of format:
+
+"/path/to/ctags/program"
+
 (("<directory>" ("<ext>"...))
   ...)
-See examples in config-examples. Configuration is **mandatory** for the program to work.
+See examples in config-examples. Configuration is **mandatory** for the
+program to work. The format is just read with the lisp reader.
 
 For example:
 (("/home/jose/.emacs.d" ("el"))
