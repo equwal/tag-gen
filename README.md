@@ -1,5 +1,7 @@
 Generate tags for a list of files and extensions.
 
+![EXUBERANT ctags](https://therealtruex.com/static/ctags.webp)
+
 # PURPOSE:
 Specify which directories to generate tags for, and what kinds of files
 to generate them for in each. Good for tag jumping in an editor.
@@ -8,8 +10,6 @@ to generate them for in each. Good for tag jumping in an editor.
 - An ANSI Common Lisp
 - A ctags-like program.
 - Desire
-
-
 
 # Non-features/Non-Requirements
 - Not multithreaded!
