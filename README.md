@@ -1,9 +1,22 @@
 Generate tags for a list of files and extensions.
 
+# PURPOSE:
+Specify which directories to generate tags for, and what kinds of files
+to generate them for in each. Good for tag jumping in an editor.
+
 # Requirements
 - An ANSI Common Lisp
 - A ctags-like program.
 - Desire
+
+
+
+# Non-features/Non-Requirements
+- Not multithreaded!
+- Works with any tag program (doesn't do any tagging itself)!
+- No special configuration language, just two sexps!
+- Does not use Roswell!
+- Works on my machine!
 
 # Install
 
