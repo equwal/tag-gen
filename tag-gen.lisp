@@ -52,6 +52,3 @@
   (declare (ignorable argv))
   (with-open-file (s conf :direction :input)
       (tag-gen (read s) (unix-namestring tag-program))))
-
-; (main "/home/jose/.config/tag-gen/local.conf" "/usr/bin/exuberant-ctags" 2)
-; (main "/home/jose/.config/tag-gen/root.conf" "/usr/bin/exuberant-ctags" 2)
